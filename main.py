@@ -1,3 +1,5 @@
+import sqlite3
+
 from flask import Flask, render_template, redirect, request, abort
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
@@ -82,6 +84,25 @@ def base():
     return render_template("main.html")
 
 
+@application.route("/recommend")
+def recommendation():
+    form = AddFilms()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        films = Films()
+        films.genre = form.genre.data
+        films.film_duration = form.film_duration.data
+        current_user.films.append(films)
+        db_sess.merge(current_user)
+        db_sess.commit()
+    return render_template("recomendation.html", form=form)
+
+
+@application.route("/help")
+def helping():
+    return render_template("help.html")
+
+
 @application.route("/search")
 def search():
     session = db_session.create_session()
@@ -148,7 +169,7 @@ def films_delete(id):
 
 
 def main():
-    db_session.global_init("db/database.sql")
+    db_session.global_init("db/webproject.sql")
     application.run()
 
 

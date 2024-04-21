@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Главное меню</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
@@ -48,7 +47,22 @@
             {% endif %}
         </nav>
     </header>
-    <h4>Добро пожаловать на новую версию приложения "Фильмс". Новая версия 2.0 добавляет телеграмм бота и использование сайта!</h4>
+        <h4>
+            Тема проекта: Web-приложение "Фильмс" и телеграмм бот.
+            Цель проекта: создание web-приложения, которое будет хранить заранее или последующие внесённые фильмы в базу данных, и разработка поиска по запросу. Создание телеграмм бота, работающий с базой данных, которая будет хранить фильмы.
+
+            Данный проект был разработан с целью создания web-приложения "Фильмс", которое будет хранить заранее или последующие внесённые фильмы в базу данных, а также разработка поиска фильмов по запросу, который задаст пользователь. В проект входит создание телеграмм бота, который будет работать с базой данных фильмов: внесенние, удаление и изменение.
+
+            Использованные библиотеки в ходе создания проекта:
+
+            Flask-Login
+            Flask-RESTful
+            SQLAlchemy
+            SQLAlchemy-serializer
+            flask
+            flask-wtf
+            aiogram-3
+        </h4>
     <main role="main" class="container">
         {% block content %}{% endblock %}
     </main>

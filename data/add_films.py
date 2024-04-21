@@ -8,4 +8,4 @@ class AddFilms(FlaskForm):
     film = StringField('Название фильма', validators=[DataRequired()])
     genre = StringField("Жанр", validators=[DataRequired()])
     film_duration = StringField("Продолжительность", validators=[DataRequired()])
-    submit = SubmitField('Применить')
+    submit = SubmitField('Найти подходящий фильм')

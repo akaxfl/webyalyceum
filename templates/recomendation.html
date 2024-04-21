@@ -5,15 +5,6 @@
 <form action="" method="post">
     {{ form.hidden_tag() }}
     <p>
-        {{ form.film.label }}<br>
-        {{ form.film(class="form-control") }}<br>
-        {% for error in form.film.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>
         {{ form.genre.label }}<br>
         {{ form.genre(class="form-control") }}<br>
         {% for error in form.genre.errors %}

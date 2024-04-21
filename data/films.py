@@ -18,3 +18,7 @@ class Films(SqlAlchemyBase):
     added_by = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
 
+    categories = orm.relationship("Category",
+                                  secondary="association",
+                                  backref="films")
+

@@ -4,31 +4,44 @@
 <title>Поиск</title>
 <meta charset="UTF-8">
 <h2 align="center">Фильмы</h2>
-<div class="input-group">
-        <input type="text" name="search" placeholder="Поиск...">
-        <button type="submit" class="btn btn-primary">Поиск</button>
-</div>
-
+<form action="/search" method="POST">
+    <div class="input-group">
+            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Поиск...">
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Поиск</button>
+    </div>
+</form>
             <p>{% if current_user.is_authenticated %}
-                <a href="add" class="btn btn-secondary">Добавить фильм в базу</a>
+                <a href="add" class="btn btn-secondary_add">Добавить фильм в базу</a>
             {% endif %}</p>
+
 {% for film in films %}
-<h3>Фильм # {{ film.id }}</h3>
+    <h3>Фильм # {{ film.id }}</h3>
+{% if current_user.is_authenticated and current_user == film.user %}
+    <div>
+        <a href="/add/{{ film.id }}" class="btn btn-warning">
+            Изменить
+        </a>
+        <a href="/add_delete/{{ film.id }}" class="btn btn-danger">
+            Удалить
+        </a>
+    </div>
+{% endif %}
+
 <div class="table_container">
     <table class="my_table">
         <tr class="my_row">
-            <td class="title" width="500px" bgcolor="#dddddd">Название фильма</td>
-            <td class="title" width="250px" bgcolor="#dddddd">Жанр фильма</td>
-            <td class="title" width="250px" bgcolor="#dddddd">Кем добавлен</td>
-            <td class="title" width="200px" bgcolor="#dddddd" align="center">Продолжительность</td>
-            <td class="title" width="200px" bgcolor="#dddddd" align="center">Когда был добавлен</td>
+            <td class="title" width="500px" bgcolor="#979A9A">Название фильма</td>
+            <td class="title" width="250px" bgcolor="#979A9A">Жанр фильма</td>
+            <td class="title" width="250px" bgcolor="#979A9A">Кем добавлен</td>
+            <td class="title" width="200px" bgcolor="#979A9A" align="center">Продолжительность</td>
+            <td class="title" width="200px" bgcolor="#979A9A" align="center">Когда был добавлен</td>
         </tr>
         <tr class="my_row">
-            <td class="ordinary" bgcolor="#eeeeff">{{ film.film.capitalize() }}</td>
-            <td class="ordinary" bgcolor="#eeeeff">{{ film.genre }}</td>
-            <td class="ordinary" bgcolor="#eeeeff">{{ names[film.added_by][0] }} {{ names[film.added_by][1] }}</td>
-            <td class="ordinary" bgcolor="#eeeeff" align="center">{{ film.film_duration }} minutes</td>
-            <td class="ordinary" bgcolor="#eeeeff">{{ film.adding_date }}</td>
+            <td class="ordinary" bgcolor="#C0C0C0">{{ film.film.capitalize() }}</td>
+            <td class="ordinary" bgcolor="#C0C0C0">{{ film.genre }}</td>
+            <td class="ordinary" bgcolor="#C0C0C0">{{ names[film.added_by][0] }} {{ names[film.added_by][1] }}</td>
+            <td class="ordinary" bgcolor="#C0C0C0" align="center">{{ film.film_duration }} minutes</td>
+            <td class="ordinary" bgcolor="#C0C0C0">{{ film.adding_date }}</td>
         </tr>
 
     </table>
