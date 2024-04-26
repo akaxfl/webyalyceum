@@ -1,28 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Добавление фильма</h1>
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.genre.label }}<br>
-        {{ form.genre(class="form-control") }}<br>
-        {% for error in form.genre.errors %}
-            <p content="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.film_duration.label }}<br>
-        {{ form.film_duration(class="form-control") }}<br>
-        {% for error in form.film_duration.errors %}
-            <p content="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>{{ form.submit(type="submit", class="g btn btn-primary") }}</p>
-    {{message}}
-</form>
+<title>Рекомендации</title>
+<h1 align="center">Рекомендации</h1>
+<br>
+<h1 align="center">Наши "нейросети" помогут вам в поиске фильма.</h1>
+    <a href="/add_detail/{{ id }}" class="h btn btn-primary">Случайный фильм, который точно подойдёт вам!</a>
 {% endblock %}

@@ -1,4 +1,7 @@
 import sqlite3
+import random
+import requests
+from bs4 import BeautifulSoup
 
 from flask import Flask, render_template, redirect, request, abort
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -71,45 +74,84 @@ def add_films():
         films.film = form.film.data
         films.genre = form.genre.data
         films.film_duration = form.film_duration.data
+        films.description = form.description.data
         current_user.films.append(films)
         db_sess.merge(current_user)
         db_sess.commit()
-        return redirect('/')
+        return redirect('/search')
     return render_template('add_films.html', title='Добавление фильма',
                            form=form)
 
 
+def latest_news(channel_name):
+    telegram_url = 'https://t.me/s/'
+    channel_name = 'echolyceum'
+    url = telegram_url+channel_name
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'lxml')
+    link = soup.find_all('a')
+    url = link[-1]['href']
+    url = url.replace('https://t.me/', '')
+    channel_name, news_id = url.split('/')
+    urls = []
+    for i in range(5):
+        urls.append(f'{channel_name}/{int(news_id) - i}')
+    return urls
+
+
+
 @application.route("/")
 def base():
-    return render_template("main.html")
+    url = 'melfm/4960'
+    channel_name = 'echolyceum'
+    urls = latest_news(channel_name)
+    return render_template("main.html", urls=urls)
 
 
 @application.route("/recommend")
 def recommendation():
-    form = AddFilms()
-    if form.validate_on_submit():
-        db_sess = db_session.create_session()
-        films = Films()
-        films.genre = form.genre.data
-        films.film_duration = form.film_duration.data
-        current_user.films.append(films)
-        db_sess.merge(current_user)
-        db_sess.commit()
-    return render_template("recomendation.html", form=form)
+    con = sqlite3.connect('db/webproject.sql')
+    cur = con.cursor()
+    cur.execute("SELECT id FROM films")
+    results = cur.fetchall()
+    con.close()
+    res1 = results[0]
+    res2 = results[1]
+    res1 = int(''.join(map(str, res1)))
+    res2 = int(''.join(map(str, res2)))
+    result = random.randint(res1, res2)
+    return render_template("recomendation.html", title='Рекомендации', id=result)
 
 
 @application.route("/help")
 def helping():
-    return render_template("help.html")
+    return render_template("help.html", title='Справка')
 
 
-@application.route("/search")
+def getfilms(search):
+    con = sqlite3.connect('db/webproject.sql')
+    cur = con.cursor()
+    cur.execute(
+      "SELECT * FROM `films` WHERE `film` LIKE ?",
+      ("%"+search+"%",)
+    )
+    results = cur.fetchall()
+    con.close()
+    return results
+
+
+@application.route("/search", methods=["GET", "POST"])
 def search():
+    if request.method == "POST":
+        data = dict(request.form)
+        users1 = getfilms(data["search"])
+    else:
+        users1 = []
     session = db_session.create_session()
     films = session.query(Films).all()
     users = session.query(User).all()
     names = {name.id: (name.surname, name.name) for name in users}
-    return render_template("search.html", films=films, names=names, title='Поиск')
+    return render_template("search.html", usr=users1, films=films, names=names, title='Поиск')
 
 
 @application.route('/logout')
@@ -117,6 +159,18 @@ def search():
 def logout():
     logout_user()
     return redirect("/")
+
+
+@application.route('/add_detail/<int:id>', methods=['GET', 'POST'])
+def film_detail(id):
+    if request.method == "GET":
+        db_sess = db_session.create_session()
+        films = db_sess.query(Films).filter(Films.id == id,
+                                            ).first()
+        users = db_sess.query(User).all()
+        names = {name.id: (name.surname, name.name) for name in users}
+
+        return render_template('description.html', title='Подробности', films=films, names=names)
 
 
 @application.route('/add/<int:id>', methods=['GET', 'POST'])
@@ -132,6 +186,7 @@ def edit_films(id):
             form.film.data = news.film
             form.genre.data = news.genre
             form.film_duration.data = news.film_duration
+            form.description.data = news.description
         else:
             abort(404)
     if form.validate_on_submit():
@@ -143,8 +198,9 @@ def edit_films(id):
             news.film = form.film.data
             news.genre = form.genre.data
             news.film_duration = form.film_duration.data
+            news.description = form.description.data
             db_sess.commit()
-            return redirect('/')
+            return redirect('/search')
         else:
             abort(404)
     return render_template('add_films.html',
@@ -165,7 +221,7 @@ def films_delete(id):
         db_sess.commit()
     else:
         abort(404)
-    return redirect('/')
+    return redirect('/search')
 
 
 def main():

@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
+    <title>Подробности</title>
     <meta charset="UTF-8">
-    <title>Главное меню</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
@@ -49,12 +47,24 @@
             {% endif %}
         </nav>
     </header>
-    <h4 align="center">Добро пожаловать на сайт "Фильмс". Новая версия v0.01 вышла в свет!</h4>
-    {% for url in urls %}
-        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post={{ url }} data-width="100%"></script>
-    {% endfor %}
-    <main role="main" class="container">
-        {% block content %}{% endblock %}
-    </main>
-  </body>
-</html>
+
+{% block content %}
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Фильм: {{ films.film }}</h1>
+
+    <div class="alert alert-info">
+        <p>Название: {{ films.film }}</p>
+        <p>Жанр: {{ films.genre }}</p>
+        <p>Подробнее: {{ films.description }}</p>
+        <p>Кем добавлен: {{ names[films.added_by][0] }} {{ names[films.added_by][1] }}</p>
+        <p>Длительность: {{ films.film_duration }} minutes</p>
+        <p>Когда был добавлен: {{ films.adding_date }}</p>
+    </div>
+    <a href="/search" class="btn btn-danger">
+            Назад
+        </a>
+</div>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Добавление фильма</h1>
+<title>Добавление, изменение</title>
 <form action="" method="post">
     {{ form.hidden_tag() }}
     <p>
@@ -26,6 +27,15 @@
         {{ form.film_duration.label }}<br>
         {{ form.film_duration(class="form-control") }}<br>
         {% for error in form.film_duration.errors %}
+            <p content="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.description.label }}<br>
+        {{ form.description(class="form-control") }}<br>
+        {% for error in form.description.errors %}
             <p content="alert alert-danger" role="alert">
                 {{ error }}
             </p>
