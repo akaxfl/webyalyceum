@@ -12,4 +12,4 @@
 4. SQLAlchemy-serializer
 5. flask
 6. flask-wtf
-7. aiogram-3
+7. telegram-ext
