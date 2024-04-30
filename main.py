@@ -120,7 +120,7 @@ def recommendation():
     results = cur.fetchall()
     con.close()
     res1 = results[0]
-    res2 = results[1]
+    res2 = results[-1]
     res1 = int(''.join(map(str, res1)))
     res2 = int(''.join(map(str, res2)))
     result = random.randint(res1, res2)
