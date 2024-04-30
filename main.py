@@ -1,23 +1,29 @@
-import sqlite3
 import random
+import sqlite3
+
+import flask
 import requests
 from bs4 import BeautifulSoup
-
-from flask import Flask, render_template, redirect, request, abort
+from flask import Flask, render_template, redirect, abort, request, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from WebProject.data.add_films import AddFilms
-from data import db_session
+from data import db_session, films_api
 from data.films import Films
 from data.login_form import LoginForm
 from data.register import RegisterForm
 from data.users import User
+from flask_restful import Api
 
 application = Flask(__name__)
 application.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+blueprint = flask.Blueprint('jobs_api', __name__, template_folder='templates')
 
 login_manager = LoginManager()
 login_manager.init_app(application)
+
+
+
 
 
 @login_manager.user_loader
@@ -32,8 +38,7 @@ def login():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
-        # if user and user.check_password(form.password.data):
-        if user:
+        if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect('/search')
         return render_template('login.html', message='Неправильный логин или пароль', form=form)
@@ -86,7 +91,7 @@ def add_films():
 def latest_news(channel_name):
     telegram_url = 'https://t.me/s/'
     channel_name = 'echolyceum'
-    url = telegram_url+channel_name
+    url = telegram_url + channel_name
     r = requests.get(url)
     soup = BeautifulSoup(r.text, 'lxml')
     link = soup.find_all('a')
@@ -97,7 +102,6 @@ def latest_news(channel_name):
     for i in range(5):
         urls.append(f'{channel_name}/{int(news_id) - i}')
     return urls
-
 
 
 @application.route("/")
@@ -132,8 +136,8 @@ def getfilms(search):
     con = sqlite3.connect('db/webproject.sql')
     cur = con.cursor()
     cur.execute(
-      "SELECT * FROM `films` WHERE `film` LIKE ?",
-      ("%"+search+"%",)
+        "SELECT * FROM `films` WHERE `film` LIKE ?",
+        ("%" + search + "%",)
     )
     results = cur.fetchall()
     con.close()
@@ -224,8 +228,19 @@ def films_delete(id):
     return redirect('/search')
 
 
+@application.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@application.errorhandler(400)
+def bad_request(_):
+    return make_response(jsonify({'error': 'Bad Request'}), 400)
+
+
 def main():
     db_session.global_init("db/webproject.sql")
+    application.register_blueprint(films_api.blueprint)
     application.run()
 
 

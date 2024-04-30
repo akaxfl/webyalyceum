@@ -10,12 +10,9 @@
             <button type="submit" value="Search" class="btn btn-outline-success my-2 my-sm-0">Поиск</button>
     </div>
 </form>
-            <p>{% if current_user.is_authenticated %}
-                <a href="add" class="btn btn-secondary_add">Добавить фильм в базу</a>
-            {% endif %}</p>
-
-
-
+<p>{% if current_user.is_authenticated %}
+    <a href="add" class="btn btn-secondary_add">Добавить фильм в базу</a>
+    {% endif %}</p>
 {% for u in usr %}
     {% for film in films %}
     <h3>Фильм # {{ film.id }}</h3>
