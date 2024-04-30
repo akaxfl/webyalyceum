@@ -7,9 +7,15 @@
 Использованные библиотеки в ходе создания проекта:
 
 1. Flask-Login
-2. Flask-RESTful
-3. SQLAlchemy
-4. SQLAlchemy-serializer
-5. flask
-6. flask-wtf
-7. telegram-ext
+3. Flask-RESTful
+4. SQLAlchemy
+5. SQLAlchemy-serializer
+6. flask
+7. flask-wtf
+8. telegram-ext
+9. requests
+10. bs4
+11. sqlite3
+12. random
+13. flask_restful
+14. datetime
