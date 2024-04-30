@@ -17,5 +17,4 @@
 10. bs4
 11. sqlite3
 12. random
-13. flask_restful
-14. datetime
+13. datetime
