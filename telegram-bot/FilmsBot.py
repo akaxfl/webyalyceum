@@ -119,9 +119,9 @@ async def search_film(update, context):
             d = j[4]
             f = j[5]
             await update.message.reply_text(f"\nНазвание фильма: {a}; \nЖанр фильма: {b};"
-                                            f"\nДлительность: {d} минут; \nДата добавления: {f}\n"
-                                            f"\nОписание:\n"
-                                            f"{c}")
+                                            f"\nДлительность: {c} минут; \nДата добавления: {f}\n"
+                                            f"\n 📖 Описание:\n"
+                                            f"{d}")
 
 
 async def genre(update, context):
@@ -145,9 +145,9 @@ async def genre(update, context):
             d = j[4]
             f = j[5]
             await update.message.reply_text(f"\nНазвание фильма: {a}; \nЖанр фильма: {b};"
-                                            f"\nДлительность: {d} минут; \nДата добавления: {f}\n"
-                                            f"\nОписание:\n"
-                                            f"{c}")
+                                            f"\nДлительность: {c} минут; \nДата добавления: {f}\n"
+                                            f"\n 📖 Описание:\n"
+                                            f"{d}")
 
 
 async def addfilms_first_response(update, context):
@@ -188,7 +188,7 @@ async def addfilms_final(update, context):
     cursor = con.cursor()
     cursor.execute(
         f"INSERT INTO films (film, genre, film_duration, description, adding_date, added_by) VALUES ('{film}', '{genre}',"
-        f"'{description}', '{duration}', '{dt}', '8')")
+        f"'{duration}', '{description}', '{dt}', '8')")
     con.commit()
     await update.message.reply_text('✅ Фильм добавлен!')
     return ConversationHandler.END

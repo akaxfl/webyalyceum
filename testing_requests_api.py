@@ -1,7 +1,7 @@
 from requests import get, post, delete
 
 print(post('http://localhost:5000/api/films',
-           json={'film': 'Заголовок',
+           json={'film': 'Крутой',
                  'genre': 'Жанр',
                  'film_duration': 120,
                  'description': 'Очень крутой',
