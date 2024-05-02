@@ -1,3 +1,4 @@
+# Импортирование
 import logging
 import sqlite3
 from datetime import datetime
@@ -7,11 +8,13 @@ from telegram import ReplyKeyboardRemove
 from telegram.ext import Application, MessageHandler
 from telegram.ext import CommandHandler, ConversationHandler, filters
 
+# Токен
 BOT_TOKEN = '6678338747:AAE8w7D_JPQ3ttCp-hz9awMCzp5rbM8O2MI'
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG
 )
 
+# Клавиатуры
 reply_keyboard = [['/help', '/site'],
                   ['/time', '/date'],
                   ['/work_time', '/addfilm'],
@@ -26,6 +29,7 @@ duration = []
 description = []
 
 
+# Запуск
 async def start(update, context):
     """Отправляет сообщение когда получена команда /start"""
     user = update.effective_user
@@ -65,6 +69,7 @@ async def start(update, context):
         )
 
 
+# Помощь
 async def help_command(update, context):
     """Отправляет сообщение когда получена команда /help"""
     await update.message.reply_text("🎬 Справка по использованию бота:\n"
@@ -97,6 +102,7 @@ async def help_command(update, context):
                                     "\n")
 
 
+# Поиск по фильму
 async def search_film(update, context):
     films = context.args[0]
     con = sqlite3.connect('../db/webproject.sql')
@@ -124,6 +130,7 @@ async def search_film(update, context):
                                             f"{d}")
 
 
+# Поиск по жанру
 async def genre(update, context):
     genres = context.args[0]
     con = sqlite3.connect('../db/webproject.sql')
@@ -150,12 +157,14 @@ async def genre(update, context):
                                             f"{d}")
 
 
+# Добавление фильма 1. Название
 async def addfilms_first_response(update, context):
     global film
     await update.message.reply_text('📄 Какое будет название у фильма?')
     return 1
 
 
+# Добавление фильма 2. Жанр
 async def addfilms_second_response(update, context):
     global genre
     global film
@@ -164,6 +173,7 @@ async def addfilms_second_response(update, context):
     return 2
 
 
+# Добавление фильма 3. Длительность
 async def addfilms_third_response(update, context):
     global duration
     global genre
@@ -172,6 +182,7 @@ async def addfilms_third_response(update, context):
     return 3
 
 
+# Добавление фильма 1. Описание/оценка
 async def addfilms_fourth_response(update, context):
     global duration
     global description
@@ -180,6 +191,7 @@ async def addfilms_fourth_response(update, context):
     return 4
 
 
+# Добавляем фильм!
 async def addfilms_final(update, context):
     global film, genre, duration, description
     description = update.message.text
@@ -194,16 +206,19 @@ async def addfilms_final(update, context):
     return ConversationHandler.END
 
 
+# Время
 async def time_command(update, context):
     """Отправляет сообщение когда получена команда /time"""
     await update.message.reply_text(datetime.now().strftime("%H:%M:%S"))
 
 
+# Дата
 async def date_command(update, context):
     """Отправляет сообщение когда получена команда /date"""
     await update.message.reply_text(datetime.now().strftime("%d:%m:%Y"))
 
 
+# Закрываем клавиатуру
 async def close_keyboard(update, context):
     await update.message.reply_text(
         "Закрываю!",
@@ -211,6 +226,7 @@ async def close_keyboard(update, context):
     )
 
 
+# Сайт
 async def site(update, context):
     """Отправляет сообщение когда получена команда /site"""
     await update.message.reply_text(
