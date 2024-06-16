@@ -17,6 +17,9 @@ h4 {
 p {
     font-size: 14pt;
 }
+.navbar {
+    border: 2px solid black;
+}
 a.navbar-brand {
     float: left
     text-align: left;
@@ -35,7 +38,7 @@ a.navbar-brand {
 }
 .navbar-expand-lg {
     width: 100%;
-    background-color: #3c3c3c;
+    background-color: #24262b;
     overflow: auto;
     border: 2px solid #2c2c2c;
 }
@@ -70,3 +73,117 @@ a.navbar-brand {
 .h1 {
     font-style: ARIAL BLACK;
 }
+
+.social-links {
+    position: absolute;
+    transform: translate(-50%);
+}
+
+.social-links .social-links-telegram {
+    font-size: 20px;
+    border: 2px solid black;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: .8s;
+    display: inline-block;
+}
+.social-links .social-links-telegram:hover {
+    background: black;
+    color: #fff;
+    transform: translateY(-5px);
+}
+.container {
+    max-width: 1170px;
+    margin: auto;
+}
+.footer {
+    background: #24262b;
+    padding: 70px 0;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+.footer-col h4 {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 25px;
+    font-weight: 500;
+    position: relative;
+}
+.footer-col h4:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background: #fff;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+.footer-col ul {
+    list-style: none;
+}
+.footer-col ul li a{
+    font-size: 16px;
+    color: #bbbbbb;
+    display: block;
+    transition: all .3s ease;
+}
+.footer-col ul li a:hover{
+    color: #fff;
+    padding-left: 6px;
+}
+body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+main {
+    min-height: calc(100vh - 70px);
+}
+.news {
+    width: 20%;
+    border-radius: 25px;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid black;
+    transform: translate(200%, 20%);
+}
+.text {
+    border-radius: 20px;
+    width: 20%;
+    padding: 20px;
+    transform: translate(200%, 100%);
+    opacity: 70%;
+    background-color: white;
+    box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.3);
+}
+.mtext {
+    color: black;
+    opacity: 100%;
+}
+.second-text {
+    color: black;
+    opacity: 100%;
+}
+.text-capital {
+    border: 5px solid black;
+    width: 50%;
+    transform: translate(50%, 150%);
+    padding: 20px;
+    opacity: 97%;
+    box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px) saturate(70%);
+}
+.films-text {
+    color: #23262c;
+    font-weight: ;
+}
+

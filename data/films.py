@@ -15,7 +15,7 @@ class Films(SqlAlchemyBase, SerializerMixin):
     genre = sqlalchemy.Column(sqlalchemy.String, nullable=True, default=0)
     film_duration = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     description = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    adding_date = sqlalchemy.Column(sqlalchemy.String, default=datetime.datetime.now)
+    adding_date = sqlalchemy.Column(sqlalchemy.String, default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
 
     added_by = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')

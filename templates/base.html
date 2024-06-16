@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
 </head>
-  <body>
-    <header>
+  <body background="../static/assets/mountains3.png">
+  <header>
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand mb-0 h1" href="http://127.0.0.1:5000/">
                  <img src="../static/assets/logo.png" alt="" width="25" height="30" class="d-inline-block align-text-top">
@@ -28,6 +28,10 @@
                             Рекомендации
                     </a>
                 {% endif %}
+                <a class="navbar-brand" href="http://127.0.0.1:5000/news">
+                    <img src="../static/assets/news.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                        Новости
+                </a>
                 <a class="navbar-brand" href="http://127.0.0.1:5000/help">
                     <img src="../static/assets/question.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
                         Справка
@@ -52,5 +56,43 @@
     <main role="main" class="container">
         {% block content %}{% endblock %}
     </main>
+  <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>Проект</h4>
+                    <ul>
+                        <li><a href="http://127.0.0.1:5000/help">О нас</a></li>
+                        <li><a href="http://127.0.0.1:5000/help">Наши проекты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Помощь</h4>
+                    <ul>
+                        <li><a href="http://127.0.0.1:5000/help">FAQ</a></li>
+                        <li><a href="http://127.0.0.1:5000/help">Справка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Ещё</h4>
+                    <ul>
+                        <li><a href="http://127.0.0.1:5000/search">Добавить фильм</a></li>
+                        <li><a href="http://127.0.0.1:5000/recommend">Рекомендации</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Наши контакты</h4>
+                    <ul>
+                        <div class="social-links">
+                            <a href="https://t.me/echolyceum">
+                              <img class="social-links-telegram" src="/static/assets/telegram.png" alt="" width="60" height="60">
+                            </a>
+
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
   </body>
 </html>

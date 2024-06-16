@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Главное меню</title>
+    <title>Новости</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
 </head>
-  <body>
+  <body background="../static/assets/mountains3.png">
     <header>
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand mb-0 h1" href="http://127.0.0.1:5000/">
@@ -29,6 +29,10 @@
                             Рекомендации
                     </a>
                 {% endif %}
+                <a class="navbar-brand" href="http://127.0.0.1:5000/news">
+                    <img src="../static/assets/news.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                        Новости
+                </a>
                 <a class="navbar-brand" href="http://127.0.0.1:5000/help">
                     <img src="../static/assets/question.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
                         Справка
@@ -49,12 +53,60 @@
             {% endif %}
         </nav>
     </header>
-    <h4 align="center">Добро пожаловать на сайт "Фильмс". Новая версия v0.01 вышла в свет!</h4>
-    {% for url in urls %}
-        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post={{ url }} data-width="100%"></script>
-    {% endfor %}
+    <br>
+    <div class="text">
+        <div class="mtext">
+            <h2 style='font-weight: lighter;'align="center">НАШ ПОПУЛЯРНЫЙ СЕРВИС</h2>
+        </div>
+        <div class="second-text">
+                <h1 style="font-weight: lighter;" align="center">НАЙДИ СВОЙ ФИЛЬМ</h1>
+        </div>
+    </div>
+    <div class="text-capital">
+        <div class="films-text">
+             <h1 style="font-size:150px; font-weight: bold;" align="center">ФИЛЬМС</h1>
+        </div>
+    </div>
     <main role="main" class="container">
         {% block content %}{% endblock %}
     </main>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>Проект</h4>
+                    <ul>
+                        <li><a href="http://127.0.0.1:5000/help">О нас</a></li>
+                        <li><a href="http://127.0.0.1:5000/help">Наши проекты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Помощь</h4>
+                    <ul>
+                        <li><a href="http://127.0.0.1:5000/help">FAQ</a></li>
+                        <li><a href="http://127.0.0.1:5000/help">Справка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Ещё</h4>
+                    <ul>
+                        <li><a href="http://127.0.0.1:5000/search">Добавить фильм</a></li>
+                        <li><a href="http://127.0.0.1:5000/recommend">Рекомендации</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Наши контакты</h4>
+                    <ul>
+                        <div class="social-links">
+                            <a href="https://t.me/echolyceum">
+                              <img class="social-links-telegram" src="/static/assets/telegram.png" alt="" width="60" height="60">
+                            </a>
+
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
   </body>
 </html>

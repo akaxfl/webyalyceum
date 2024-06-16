@@ -13,19 +13,19 @@
 <p>{% if current_user.is_authenticated %}
     <a href="add" class="btn btn-secondary_add">Добавить фильм в базу</a>
     {% endif %}</p>
-{% for u in usr %}
+
     {% for film in films %}
-    <h3>Фильм # {{ film.id }}</h3>
-    <a href="/add_detail/{{ film.id }}" class="btn btn-warning">
+    <h3>Фильм # {{film[0]}}</h3>
+    <a href="/add_detail/{{ film[0] }}" class="btn btn-warning">
             Детальнее
         </a>
-{% if current_user.is_authenticated and current_user == film.user %}
+{% if current_user.is_authenticated and current_user == film[6], film[7] %}
     <div>
         <br>
-        <a href="/add/{{ film.id }}" class="btn btn-warning">
+        <a href="/add/{{ film[0] }}" class="btn btn-warning">
             Изменить
         </a>
-        <a href="/add_delete/{{ film.id }}" class="btn btn-danger">
+        <a href="/add_delete/{{ film[0] }}" class="btn btn-danger">
             Удалить
         </a>
     </div>
@@ -40,15 +40,15 @@
             <td class="title" width="200px" bgcolor="#979A9A" align="center">Когда был добавлен</td>
     </tr>
     <tr class="my_row">
-            <td class="ordinary" bgcolor="#C0C0C0">{{ u[1] }}</td>
-            <td class="ordinary" bgcolor="#C0C0C0">{{ u[2] }}</td>
-            <td class="ordinary" bgcolor="#C0C0C0">{{ names[film.added_by][0] }} {{ names[film.added_by][1] }}</td>
-            <td class="ordinary" bgcolor="#C0C0C0" align="center">{{ u[3] }} minutes</td>
-            <td class="ordinary" bgcolor="#C0C0C0" align="center">{{ u[5] }}</td>
+            <td class="ordinary" bgcolor="#C0C0C0">{{film[1]}}</td>
+            <td class="ordinary" bgcolor="#C0C0C0">{{film[2]}}</td>
+            <td class="ordinary" bgcolor="#C0C0C0">{{ film[6] }} {{ film[7] }}</td>
+            <td class="ordinary" bgcolor="#C0C0C0" align="center">{{ film[3] }} minutes</td>
+            <td class="ordinary" bgcolor="#C0C0C0" align="center">{{ film[5]}}</td>
     </tr>
   </table>
 </div>
 <br>
-{% endfor %}
+
 {% endfor %}
 {% endblock %}
