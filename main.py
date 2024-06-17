@@ -7,13 +7,14 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, redirect, abort, request, make_response, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
-from WebProject.data.add_films import AddFilms
+from data.add_films import AddFilms
 from data import db_session, films_api
 from data.films import Films
 from data.login_form import LoginForm
 from data.register import RegisterForm
 from data.users import User
 from flask_restful import Api
+from data.edit_films import EditFilms
 
 application = Flask(__name__)
 application.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -142,11 +143,23 @@ def helping():
     return render_template("help.html", title='Справка')
 
 
-def getfilms(search):
+def getfilms(data):
     con = sqlite3.connect('db/webproject.sql')
     cur = con.cursor()
-    x = "SELECT films.id, films.film, films.genre, films.film_duration, films.description, films.adding_date, users.surname, users.name FROM films LEFT JOIN users ON users.id = films.added_by WHERE film LIKE ?"
-    cur.execute(x, ("%" + search + "%",))
+    tmp = f'%{data.get("search", "*")}%'
+    x = f"""SELECT 
+                films.id, 
+                films.film, 
+                films.genre, 
+                films.film_duration, 
+                films.description, 
+                films.adding_date, 
+                users.surname, 
+                users.name 
+            FROM films 
+            LEFT JOIN users ON users.id = films.added_by 
+            WHERE {data['option']} LIKE '{tmp}'"""
+    cur.execute(x)
     results = cur.fetchall()
     con.close()
     return results
@@ -157,7 +170,7 @@ def getfilms(search):
 def search():
     if request.method == "POST":
         data = dict(request.form)
-        films = getfilms(data["search"])
+        films = getfilms(data)
     else:
         films = []
     return render_template("search.html", films=films, title='Поиск')
@@ -186,7 +199,7 @@ def film_detail(id):
 @application.route('/add/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_films(id):
-    form = AddFilms()
+    form = EditFilms()
     if request.method == "GET":
         db_sess = db_session.create_session()
         films = db_sess.query(Films).filter(Films.id == id,
@@ -213,8 +226,8 @@ def edit_films(id):
             return redirect('/search')
         else:
             abort(404)
-    return render_template('add_films.html',
-                           title='Редактирование новости',
+    return render_template('edit_films.html',
+                           title='Редактирование фильма',
                            form=form
                            )
 
